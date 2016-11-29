@@ -1,0 +1,16 @@
+!!! 5
+%html
+  %head
+    %link(rel="stylesheet" type="text/css" href="bootstrap.min.css")
+    %script(src="jquery.min.js")
+    %script(src="bootstrap.min.js")
+    %meta(charset="utf-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
+
+  %body
+    .container
+      %h1 S3 Uploader
+      .row
+        %form#upload(enctype="multipart/form-data" action="/upload" method ="post")
+          %input(name="file" type="file")
+          %input(type="submit" value="Upload")
