@@ -1,7 +1,6 @@
-= Simple Upload Tool for S3
+# Simple Upload Tool for S3
 
-Usage
-
+Usage:
 ```
 #!/bin/sh
 
