@@ -1,6 +1,26 @@
 # Simple Upload Tool for S3
 
-Usage:
+## Usage
+
+
+### Dockerized
+Build Docker image:
+```
+$ docker build -t s3uploader .
+```
+Run it:
+```
+$ docker run -d --name s3uploader \
+-e AWS_ACCESS_KEY_ID=secret \
+-e AWS_SECRET_ACCESS_KEY=secret \
+-e S3_ENDPOINT=https://hostname:port \
+-e S3_BUCKET_NAME=bucketname \
+s3uploader
+```
+
+### Direct execution via CLI
+
+Requires `sinatra shotgun haml aws-sdk`:
 ```
 #!/bin/sh
 
