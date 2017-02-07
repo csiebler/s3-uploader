@@ -9,8 +9,25 @@
 
   %body
     .container
-      %h1 S3 Uploader
+      %h1 Upload new file
       .row
         %form#upload(enctype="multipart/form-data" action="/upload" method ="post")
           %input(name="file" type="file")
           %input(type="submit" value="Upload")
+      
+    .container
+      %h1 Existing files
+      %table.table
+        %thead
+          %tr
+            %th Filename
+            %th Size
+            %th Action
+        %tbody
+        - @objects.each do |o|
+          %tr
+            %td #{o[:key]}
+            %td #{o[:size]}
+            %td
+              %a(href="https://www.google.com") Download
+
