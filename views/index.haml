@@ -25,6 +25,6 @@
         - @objects.each do |o|
           %tr
             %td #{o[:key]}
-            %td #{o[:size]}
+            %td #{o[:size]} MB
             %td
-              %a(href="https://www.google.com") Download
+              %a(href="download/#{o[:id]}") Download

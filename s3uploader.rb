@@ -9,8 +9,9 @@ s3 = Aws::S3::Resource.new(client: client)
 
 get "/" do
   @objects = []
-  s3.bucket(S3_BUCKET_NAME).objects.each do |object|
-    @objects << {:key => object.key, :size => object.size}
+  s3.bucket(S3_BUCKET_NAME).objects.each do |o|
+    
+    @objects << {key: o.key, size: (o.size / 1048576.0).round(1), id: Base64.strict_encode64(o.key)}
   end
 
   haml :index
@@ -23,4 +24,11 @@ post "/upload" do
   #TODO Forward to error message if upload failed
 
   redirect to('/')
+end
+
+get "/download/:id" do
+  key = Base64.strict_decode64(params[:id])
+  object = s3.bucket(S3_BUCKET_NAME).object(key)
+  url = object.presigned_url(:get, expires_in: 30, response_content_disposition: 'attachment')
+  redirect to(url)
 end
