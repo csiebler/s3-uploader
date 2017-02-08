@@ -1,20 +1,18 @@
 !!! 5
 %html
   %head
-    %link(rel="stylesheet" type="text/css" href="bootstrap.min.css")
     %script(src="jquery.min.js")
     %script(src="bootstrap.min.js")
+    %link(rel="stylesheet" type="text/css" href="bootstrap.min.css")
     %meta(charset="utf-8")
     %meta(name="viewport" content="width=device-width, initial-scale=1")
-
   %body
     .container
       %h1 Upload new file
       .row
         %form#upload(enctype="multipart/form-data" action="/upload" method ="post")
           %input(name="file" type="file")
-          %input(type="submit" value="Upload")
-      
+          %input.btn.btn-default(type="submit" value="Upload")
     .container
       %h1 Existing files
       %table.table
@@ -30,4 +28,3 @@
             %td #{o[:size]}
             %td
               %a(href="https://www.google.com") Download
-
