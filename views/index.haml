@@ -3,10 +3,12 @@
   %head
     %script(src="jquery.min.js")
     %script(src="bootstrap.min.js")
+    %script(src="script.js")
     %link(rel="stylesheet" type="text/css" href="bootstrap.min.css")
     %meta(charset="utf-8")
     %meta(name="viewport" content="width=device-width, initial-scale=1")
   %body
+    
     .container
       %h1 Upload new file
       .row
@@ -15,16 +17,12 @@
           %input.btn.btn-default(type="submit" value="Upload")
     .container
       %h1 Existing files
-      %table.table
+      %table.table#files
         %thead
           %tr
-            %th Filename
-            %th Size
-            %th Action
+            %th.col-xs-7 Filename
+            %th.col-xs-3 Date
+            %th.col-xs-1 Size
+            %th.col-xs-1 Action
         %tbody
-        - @objects.each do |o|
-          %tr
-            %td #{o[:key]}
-            %td #{o[:size]} MB
-            %td
-              %a(href="download/#{o[:id]}") Download
+      %button.btn.btn-default(type="button" id="loadmore") Load more
