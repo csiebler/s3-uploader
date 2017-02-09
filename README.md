@@ -1,7 +1,8 @@
 # Simple Upload Tool for S3
 
-## Usage
+![alt text](screenshots/screenshot.png "Screenshot")
 
+## Usage
 
 ### Dockerized
 Build Docker image:
