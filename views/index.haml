@@ -5,6 +5,7 @@
     %script(src="bootstrap.min.js")
     %script(src="script.js")
     %link(rel="stylesheet" type="text/css" href="bootstrap.min.css")
+    %link(rel="stylesheet" type="text/css" href="site.css")
     %meta(charset="utf-8")
     %meta(name="viewport" content="width=device-width, initial-scale=1")
   %body
@@ -22,10 +23,10 @@
       %table.table.table-hover#files
         %thead
           %tr
-            %th.col-xs-7 Filename
-            %th.col-xs-2 Date
-            %th.col-xs-1 Size
-            %th.col-xs-2 Action
+            %th.col-s-6 Filename
+            %th.col-s-2 Date
+            %th.col-s-2 Size
+            %th.col-s-2 Action
         %tbody
-      %img#loader(src="loader.gif")
+      %img#loader.img-responsive.img-center(src="loader.gif")
     = haml :modal
