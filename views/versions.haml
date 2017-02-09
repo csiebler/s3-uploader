@@ -1,0 +1,6 @@
+- @objects.each do |o|
+  %tr
+    %td #{o[:date]}
+    %td #{o[:size]} MB
+    %td
+      %a(href="#{o[:id]}/download/#{o[:version]}") Download

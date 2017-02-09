@@ -4,4 +4,5 @@
     %td #{o[:date]}
     %td #{o[:size]} MB
     %td
-      %a(href="download/#{o[:id]}") Download
+      %a(href="#{o[:id]}/download") Download
+      %a.openmodal(href="#" key="#{o[:id]}") Versions

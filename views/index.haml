@@ -8,21 +8,24 @@
     %meta(charset="utf-8")
     %meta(name="viewport" content="width=device-width, initial-scale=1")
   %body
-    
     .container
       %h1 Upload new file
       .row
-        %form#upload(enctype="multipart/form-data" action="/upload" method ="post")
-          %input(name="file" type="file")
-          %input.btn.btn-default(type="submit" value="Upload")
+        .col-sm-10
+          %form#upload(enctype="multipart/form-data" action="/upload" method ="post")
+            %input(name="file" type="file")
+            %input.btn.btn-default(type="submit" value="Upload")
+        .col-sm-2#versioning
+          Versioning: #{@versioning_status}
     .container
       %h1 Existing files
-      %table.table#files
+      %table.table.table-hover#files
         %thead
           %tr
             %th.col-xs-7 Filename
-            %th.col-xs-3 Date
+            %th.col-xs-2 Date
             %th.col-xs-1 Size
-            %th.col-xs-1 Action
+            %th.col-xs-2 Action
         %tbody
       %img#loader(src="loader.gif")
+    = haml :modal
