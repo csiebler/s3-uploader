@@ -15,6 +15,42 @@ $(document).ready(function () {
         }
     });
 
+    $('#uploadbutton').click(function () {
+        var key = "1234";
+        $.get('/generate_upload/' + key, function (url) {
+            console.log(url);
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: new FormData($('#uploadform')),
+                cache: false,
+                contentType: false,
+                processData: false,
+                xhr: function () {
+                    var myXhr = $.ajaxSettings.xhr();
+                    if (myXhr.upload) {
+                        myXhr.upload.addEventListener('progress', function (e) {
+                            console.log(e);
+                            //if (e.lengthComputable) {
+                            //    $('#bar').attr({
+                            //        "aria-valuenow": e.loaded,
+                            //        "aria-valuemax": e.total
+                            //    });
+                            //}
+                        }, false);
+                    }
+                    return myXhr;
+                },
+            });
+
+
+        });
+    });
+
+
+
+
     $(document).on('click', '.openmodal', function () {
         var key = $(this).attr('key');
         $('#versions').empty();

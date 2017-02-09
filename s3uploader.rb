@@ -59,6 +59,10 @@ get "/:id/versions" do |id|
   haml :versions
 end
 
+get "/generate_upload/:key" do |key|
+  signer.presigned_url(:put_object, bucket: S3_BUCKET_NAME, key: key, expires_in: 300)
+end
+
 def size_in_mb(value)
   (value / 1048576.0).round(1)
 end

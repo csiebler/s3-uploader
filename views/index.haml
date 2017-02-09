@@ -13,9 +13,11 @@
       %h1 Upload new file
       .row
         .col-sm-10
-          %form#upload(enctype="multipart/form-data" action="/upload" method ="post")
+          %form#uploadform(enctype="multipart/form-data")
             %input(name="file" type="file")
-            %input.btn.btn-default(type="submit" value="Upload")
+            %input#uploadbutton.btn.btn-default(type="button" value="Upload")
+          .progress
+            .progress-bar.progress-bar-striped.active(role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%")
         .col-sm-2#versioning
           Versioning: #{@versioning_status}
     .container
