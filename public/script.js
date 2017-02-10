@@ -3,7 +3,7 @@ $(document).ready(function () {
     var prefix = window.btoa('');
     var all_loaded = false;
 
-    function load() {
+    function load_more_entries() {
         $.get('/load/' + marker + '/' + prefix, function (data) {
             if (data) {
                 $('#files').append(data);
@@ -11,7 +11,7 @@ $(document).ready(function () {
                 console.log("new marker: ", marker);
                 marker = window.btoa(marker);
             } else {
-                console.log("Couldnt fetch new data");
+                all_loaded = true;
                 $('#nomore').show();
                 $('#loader').fadeOut();
             }
@@ -21,8 +21,9 @@ $(document).ready(function () {
     function reload() {
         $('#nomore').hide();
         $('#files').empty();
+        all_loaded = false;
         marker = window.btoa('0');
-        load();
+        load_more_entries();
     }
 
     reload();
@@ -59,22 +60,8 @@ $(document).ready(function () {
             return;
         if ($(window).scrollTop() == $(document).height() - $(window).height()) {
             $(window).data('ajaxready', false);
-            /*marker = $('#files tr:last td:first').html();
-            marker = window.btoa(marker);
-            $.ajax({
-                url: "load/" + marker + '/' + prefix,
-                success: function (data) {
-                    if (data) {
-                        $('#files').append(data);
-                    } else {
-                        $('#loader').fadeOut();
-                        all_loaded = true;
-                    }
-                }
-            });*/
-            load();
+            load_more_entries();
             $(window).data('ajaxready', true);
         }
-
     });
 });

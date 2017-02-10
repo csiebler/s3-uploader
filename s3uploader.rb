@@ -4,8 +4,7 @@ require 'aws-sdk'
 S3_BUCKET_NAME = ENV['S3_BUCKET_NAME']
 S3_ENDPOINT = ENV['S3_ENDPOINT']
 
-s3 = Aws::S3::Client.new(region: 'us-east-1', endpoint: S3_ENDPOINT,
-                             force_path_style: true, ssl_verify_peer: false)
+s3 = Aws::S3::Client.new(region: 'us-east-1', endpoint: S3_ENDPOINT, force_path_style: true, ssl_verify_peer: false)
 signer = Aws::S3::Presigner.new({client: s3})
 
 get "/" do
@@ -54,7 +53,6 @@ get "/:id/versions" do |id|
   key = decode(id)
   @objects = []
   response = s3.list_object_versions({bucket: S3_BUCKET_NAME, prefix: key})
-  # TODO Remove isLatest
   response.versions.each do |o|
     @objects << {key: o.key, size: size_in_mb(o.size),
                  date: o.last_modified, version: o.version_id, id: encode(o.key)}
@@ -76,10 +74,9 @@ end
 
 def get_reloaded_objects(s3, marker, prefix = '')
     @objects = []
-    response = s3.list_objects({bucket: S3_BUCKET_NAME, max_keys: 25, prefix: prefix, marker: marker})
+    response = s3.list_objects({bucket: S3_BUCKET_NAME, max_keys: 100, prefix: prefix, marker: marker})
     response.contents.each do |o|
-      @objects << {key: o.key, size: size_in_mb(o.size), 
-                   date: o.last_modified, id: encode(o.key)}
+      @objects << {key: o.key, size: size_in_mb(o.size), date: o.last_modified, id: encode(o.key)}
     end
     return @objects
 end
