@@ -16,9 +16,10 @@ get "/versioning" do
   s3.get_bucket_versioning({bucket: S3_BUCKET_NAME}).status
 end
 
-get '/load/:marker' do |marker|
+get '/load/:id' do |id|
+    key = decode(id)
     @objects = []
-    response = s3.list_objects({bucket: S3_BUCKET_NAME, max_keys: 25, marker: marker})
+    response = s3.list_objects({bucket: S3_BUCKET_NAME, max_keys: 25, marker: key})
     response.contents.each do |o|
       @objects << {key: o.key, size: size_in_mb(o.size), 
                    date: o.last_modified, id: encode(o.key)}
