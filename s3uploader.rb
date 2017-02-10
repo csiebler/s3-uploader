@@ -16,14 +16,16 @@ get "/versioning" do
   s3.get_bucket_versioning({bucket: S3_BUCKET_NAME}).status
 end
 
-get '/load/:id' do |id|
-    key = decode(id)
-    @objects = []
-    response = s3.list_objects({bucket: S3_BUCKET_NAME, max_keys: 25, marker: key})
-    response.contents.each do |o|
-      @objects << {key: o.key, size: size_in_mb(o.size), 
-                   date: o.last_modified, id: encode(o.key)}
-    end
+get '/load/:marker/?' do |marker|
+    marker = decode(marker)
+    @objects = get_reloaded_objects(s3, marker)
+    haml :files
+end
+
+get '/load/:marker/:prefix' do |marker, prefix|
+    marker = decode(marker)
+    prefix = decode(prefix)
+    @objects = get_reloaded_objects(s3, marker, prefix)
     haml :files
 end
 
@@ -70,4 +72,14 @@ end
 
 def decode(value)
   Base64.strict_decode64(value)
+end
+
+def get_reloaded_objects(s3, marker, prefix = '')
+    @objects = []
+    response = s3.list_objects({bucket: S3_BUCKET_NAME, max_keys: 25, prefix: prefix, marker: marker})
+    response.contents.each do |o|
+      @objects << {key: o.key, size: size_in_mb(o.size), 
+                   date: o.last_modified, id: encode(o.key)}
+    end
+    return @objects
 end

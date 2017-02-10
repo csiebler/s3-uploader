@@ -20,13 +20,20 @@
           Versioning: #{@versioning_status}
     .container
       %h1 Existing files
-      %table.table.table-hover#files
+      .row
+        .col-sm-7
+        .col-sm-5
+          .input-group
+            %span.input-group-addon Filter Prefix
+            %input#prefix.form-control(type="text")
+      %table.table.table-hover
         %thead
           %tr
             %th.col-s-6 Filename
             %th.col-s-2 Date
             %th.col-s-2 Size
             %th.col-s-2 Action
-        %tbody
+        %tbody#files
+      #nomore No more results.
       %img#loader.img-responsive.img-center(src="loader.gif")
     = haml :modal
