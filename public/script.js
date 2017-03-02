@@ -2,19 +2,27 @@ $(document).ready(function () {
     var marker = window.btoa('0');
     var prefix = window.btoa('');
     var all_loaded = false;
+    var finished_loading = true;
 
     function load_more_entries() {
+        if (!finished_loading) {
+            return;
+        }
+        finished_loading = false;
+        $('#loader').show();
+        console.log("Updating entries");
         $.get('/load/' + marker + '/' + prefix, function (data) {
             if (data) {
                 $('#files').append(data);
                 marker = $('#files tr:last td:first').html();
-                console.log("new marker: ", marker);
+                console.log("New Marker: ", marker);
                 marker = window.btoa(marker);
             } else {
                 all_loaded = true;
-                $('#nomore').show();
-                $('#loader').fadeOut();
+                $('#nomore').fadeIn();
             }
+            finished_loading = true;
+            $('#loader').fadeOut();
         });
     }
 
@@ -55,13 +63,11 @@ $(document).ready(function () {
         });
     });
 
-    $(window).data('ajaxready', true).scroll(function () {
-        if (all_loaded || $(window).data('ajaxready') == false)
+    $(window).scroll(function () {
+        if (all_loaded || finished_loading == false)
             return;
         if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-            $(window).data('ajaxready', false);
-            load_more_entries();
-            $(window).data('ajaxready', true);
+                load_more_entries();
         }
     });
 });
