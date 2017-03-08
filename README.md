@@ -2,7 +2,15 @@
 
 ![alt text](screenshots/screenshot.png "Screenshot")
 
+## Features
+
+* Upload new files to an S3 bucket in StorageGRID
+* Filter existing objects by a prefix
+* Download existing objects, including older versions
+
 ## Usage
+
+The tool can either be directly deployed on Docker or Swarm, or manually via command line.
 
 ### Dockerized
 Build Docker image:
