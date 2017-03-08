@@ -1,6 +1,6 @@
 # Simple Upload Tool for S3
 
-![alt text](screenshots/screenshot.png "Screenshot")
+A simple tool that offers a Web UI to upload/download data to/from NetApp StorageGRID Webscale.
 
 ## Features
 
@@ -8,9 +8,11 @@
 * Filter existing objects by a prefix
 * Download existing objects, including older versions
 
+![alt text](screenshots/screenshot.png "Screenshot")
+
 ## Usage
 
-The tool can either be directly deployed on Docker or Swarm, or manually via command line.
+The tool can either be directly deployed on Docker or Swarm, or manually via command line. Supports NetApp StorageGRID Webscale 10.3 and greater.
 
 ### Dockerized
 Build Docker image:
