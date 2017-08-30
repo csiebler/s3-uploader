@@ -12,7 +12,7 @@ get "/" do
 end
 
 get "/versioning" do
-  s3.get_bucket_versioning({bucket: S3_BUCKET_NAME}).status
+  s3.get_bucket_versioning({bucket: S3_BUCKET_NAME}).status || "Disabled"
 end
 
 get '/load/:marker/?' do |marker|
