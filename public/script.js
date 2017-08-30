@@ -42,16 +42,17 @@ $(document).ready(function () {
         }
     });
 
-    $("#prefix").keyup(function () {
+    $("#prefix").keyup($.debounce(500 ,function () {
         prefix = window.btoa(this.value);
         reload();
-    });
+    }));
+
 
     $(document).on('click', '.openmodal', function () {
+        console.info("clicked");
         var key = $(this).attr('key');
         $('#versions').empty();
         $('#versionloader').show();
-        $('#versions-modal').modal('show');
         $.ajax({
             url: key + "/versions",
             success: function (data) {
